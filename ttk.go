@@ -378,8 +378,8 @@ func Init() error {
 		return err
 	}
 
-	bg = termbox.ColorBlack
-	fg = termbox.ColorWhite
+	bg = termbox.ColorDefault
+	fg = termbox.ColorDefault
 	termbox.HideCursor()
 	termbox.SetInputMode(termbox.InputAlt) // this may need to become variable
 	_ = termbox.Clear(bg, bg)
