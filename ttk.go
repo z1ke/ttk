@@ -150,7 +150,7 @@ func DecodeColor(esc string) (*Attributes, int, error) {
 		// can't happen
 		return nil, 0, ErrNotEscSequence
 	}
-	skip += 1 // character past m
+	skip++ // character past m
 
 	return &a, skip, nil
 }

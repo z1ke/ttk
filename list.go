@@ -62,7 +62,8 @@ func (l *List) clip() {
 			line = line[:l.trueW] // clip
 		}
 		filler := strings.Repeat(" ", spacing)
-		l.w.printf(0, l.trueY+i, l.attr, "%v%v", string(line), filler)
+		x := 0
+		l.w.printf(x, l.trueY+i, l.attr, "%v%v", string(line), filler)
 
 		at++
 		if at > len(l.content)-1 {
@@ -89,8 +90,9 @@ func (l *List) Visibility(op Visibility) Visibility {
 
 func (l *List) clear() {
 	s := strings.Repeat(" ", l.trueW)
+	x := 0
 	for i := 0; i < l.trueH; i++ {
-		l.w.printf(0, i+l.trueY, defaultAttributes(), s)
+		l.w.printf(x, i+l.trueY, defaultAttributes(), s)
 	}
 }
 
@@ -295,8 +297,9 @@ func (l *List) Display(where Location) {
 	if len(buffer) > l.trueH {
 		buffer = buffer[len(buffer)-l.trueH:]
 	}
+	x := 0
 	for i, v := range buffer {
-		l.w.printf(0, l.trueY+i, l.attr, "%v", string(v))
+		l.w.printf(x, l.trueY+i, l.attr, "%v", string(v))
 	}
 }
 

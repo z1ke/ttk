@@ -87,7 +87,8 @@ func (l *Label) Render() {
 		left = strings.Repeat(" ", spacing/2)
 		right = strings.Repeat(" ", spacing/2+spacing%2)
 	}
-	l.w.printf(0, l.trueY, l.attr, "%v%v%v", left, text, right)
+	x := 0
+	l.w.printf(x, l.trueY, l.attr, "%v%v%v", left, text, right)
 }
 
 // KeyHandler implements the interface.  This is called from queue context

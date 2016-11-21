@@ -7,8 +7,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"ttk"
 
+	"github.com/companyzero/ttk"
 	"github.com/nsf/termbox-go"
 )
 
@@ -132,8 +132,6 @@ func _main() error {
 			ttk.ForwardKey(key)
 		}
 	}
-
-	return nil
 }
 
 func main() {

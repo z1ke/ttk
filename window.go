@@ -187,7 +187,7 @@ func (w *Window) FocusNext() {
 // focusPrevious shall be called from queue context.
 func (w *Window) focusPrevious() {
 	// it is ok to be negative since that'll focus on the first widget
-	w.focus -= 1
+	w.focus--
 	if w.focus < 0 {
 		w.focusWidget()
 		return
