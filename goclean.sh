@@ -16,6 +16,8 @@ test -z "$(gometalinter --disable-all \
 --enable=gofmt \
 --enable=vet \
 --enable=goimports \
+--enable=gosimple \
+--enable=unconvert \
 --deadline=20s ./... | tee /dev/stderr)"
 env GORACE="halt_on_error=1" go test -v -race ./...
 

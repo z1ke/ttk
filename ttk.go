@@ -141,7 +141,7 @@ func DecodeColor(esc string) (*Attributes, int, error) {
 		}
 	}
 
-	if foundM == false {
+	if !foundM {
 		return nil, 0, ErrNotEscSequence
 	}
 
@@ -266,49 +266,37 @@ func init() {
 	wg.Add(2)
 	go func() {
 		wg.Done()
-		for {
-			select {
-			case _, ok := <-execute:
-				if !ok {
-					return
-				}
-				for {
-					// get work off queue
-					mtx.Lock()
-					if len(fa) == 0 {
-						mtx.Unlock()
-						break
-					}
-					f := fa[0]
-					fa[0] = nil // just in case to prevent leak
-					fa = fa[1:]
+		for range execute {
+			for {
+				// get work off queue
+				mtx.Lock()
+				if len(fa) == 0 {
 					mtx.Unlock()
-
-					// actually do work
-					f()
+					break
 				}
+				f := fa[0]
+				fa[0] = nil // just in case to prevent leak
+				fa = fa[1:]
+				mtx.Unlock()
+
+				// actually do work
+				f()
 			}
 		}
 	}()
 
 	go func() {
 		wg.Done()
-		for {
-			select {
-			case f, ok := <-work:
-				if !ok {
-					return
-				}
-				// queue work
-				mtx.Lock()
-				fa = append(fa, f)
-				mtx.Unlock()
+		for f := range work {
+			// queue work
+			mtx.Lock()
+			fa = append(fa, f)
+			mtx.Unlock()
 
-				// tell executer there is work
-				select {
-				case execute <- true:
-				default:
-				}
+			// tell executer there is work
+			select {
+			case execute <- true:
+			default:
 			}
 		}
 	}()
@@ -368,7 +356,7 @@ func Init() error {
 	rawMtx.Lock()
 	defer rawMtx.Unlock()
 
-	if termRaw == true {
+	if termRaw {
 		return ErrAlreadyInitialized
 	}
 
@@ -387,7 +375,7 @@ func Init() error {
 	_ = termbox.Flush()
 
 	// see if we need to launch the key handler
-	if keyHandler == false {
+	if !keyHandler {
 		go initKeyHandler()
 		keyHandler = true
 	}

@@ -65,7 +65,7 @@ func (l *Label) Render() {
 		return
 	}
 
-	if l.status == false {
+	if !l.status {
 		l.w.printf(l.trueX, l.trueY, l.attr, "%v", l.text)
 		return
 	}
