@@ -2,20 +2,29 @@
 # The script does automatic checking on a Go package and its sub-packages, including:
 # 1. gofmt         (http://golang.org/cmd/gofmt/)
 # 2. goimports     (https://github.com/bradfitz/goimports)
-# 3. golint        (https://github.com/golang/lint)
-# 4. go vet        (http://golang.org/cmd/vet)
-# 5. test coverage (http://blog.golang.org/cover)
+# 3. go vet        (http://golang.org/cmd/vet)
+# 4. gosimple      (https://github.com/dominikh/go-simple)
+# 5. unconvert     (https://github.com/mdempsky/unconvert)
+# 6. race detector (http://blog.golang.org/race-detector)
+# 7. test coverage (http://blog.golang.org/cover)
 #
-# gometalint (github.com/alecthomas/gometalinter) is used to run each each
-# static checker.
 
-set -e
+# gometalinter (github.com/alecthomas/gometalinter) is used to run each each
+# static checker.
+set -ex
+
+# Make sure gometalinter is installed and $GOPATH/bin is in your path.
+# $ go get -v github.com/alecthomas/gometalinter"
+# $ gometalinter --install"
+if [ ! -x "$(type -p gometalinter)" ]; then
+  exit 1
+fi
 
 # Automatic checks
 test -z "$(gometalinter --disable-all \
 --enable=gofmt \
---enable=vet \
 --enable=goimports \
+--enable=vet \
 --enable=gosimple \
 --enable=unconvert \
 --deadline=20s ./... | tee /dev/stderr)"
