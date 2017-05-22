@@ -107,7 +107,7 @@ func (e *Edit) KeyHandler(ev termbox.Event) bool {
 	case termbox.KeyCtrlE, termbox.KeyEnd:
 		if len(e.display) < e.trueW-1 {
 			// no need to call display
-			e.cx = e.trueX + len(e.display)
+			e.cx = e.trueX + len(e.display) - e.at
 			setCursor(e.cx, e.cy)
 			return true
 		}
