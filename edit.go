@@ -293,6 +293,7 @@ func (e *Edit) Resize() {
 			// end of text
 			if len(e.display) < e.trueW-1 {
 				e.cx = e.trueX + len(e.display)
+				e.at = 0
 			} else {
 				e.cx = e.trueX + e.trueW - 1
 				e.at = len(e.display) - e.trueW + 1
