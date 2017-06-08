@@ -116,6 +116,13 @@ func (e *Edit) KeyHandler(ev termbox.Event) bool {
 		setCursor(e.cx, e.cy)
 		e.Render()
 		return true
+	case termbox.KeyCtrlU:
+		e.cx = e.trueX
+		e.at = 0
+		e.display = []rune("")
+		setCursor(e.cx, e.cy)
+		e.Render()
+		return true
 	case termbox.KeyArrowRight:
 		// check to see if we have content on the right hand side
 		if e.cx-e.trueX == len(e.display[e.at:]) {
