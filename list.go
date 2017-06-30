@@ -153,6 +153,14 @@ func (l *List) Resize() {
 	if l.height < 1 {
 		l.trueH = l.w.y + l.height - 1
 	}
+
+	// check if we need to update l.at
+	if l.at != 0 && l.at+l.trueH >= len(l.content) {
+		l.at = len(l.content) - l.trueH
+		if l.at < 0 {
+			l.at = 0
+		}
+	}
 }
 
 // AddList is a convenience function to add a new list to a window.  It wraps
