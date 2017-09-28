@@ -177,9 +177,11 @@ func (e *Edit) KeyHandler(ev termbox.Event) bool {
 			if e.at > e.trueW-1 {
 				e.cx = e.trueW - 1
 			} else {
-				e.cx = e.at
+				e.cx = e.at + e.trueX
 			}
-			e.at -= e.cx
+			if e.at >= e.cx {
+				e.at -= e.cx
+			}
 		} else {
 			e.cx--
 		}
