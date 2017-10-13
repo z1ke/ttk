@@ -58,7 +58,8 @@ func (w *Window) printf(x, y int, a Attributes, format string,
 	c.Fg = a.Fg
 	c.Bg = a.Bg
 	mx := w.x - x
-	for i, rw := 0, 0; i < len(out); i += rw {
+	var rw int
+	for i := 0; i < len(out); i += rw {
 		if x+xx+1 > mx {
 			break
 		}

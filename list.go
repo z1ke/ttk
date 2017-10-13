@@ -43,36 +43,6 @@ type List struct {
 	visibility Visibility
 }
 
-// clip renders the list by clipping all lines at widget width.
-func (l *List) clip() {
-	at := len(l.content) - l.trueH
-	if at < 0 {
-		at = 0
-	}
-	if at > len(l.content)-1 {
-		return
-	}
-
-	line := []rune(l.content[at])
-	for i := 0; i < l.trueH; i++ {
-		spacing := l.trueW - len(line) + EscapedLen(l.content[at])
-		if spacing < 0 {
-			// line wrapped
-			spacing = 0
-			line = line[:l.trueW] // clip
-		}
-		filler := strings.Repeat(" ", spacing)
-		x := 0
-		l.w.printf(x, l.trueY+i, l.attr, "%v%v", string(line), filler)
-
-		at++
-		if at > len(l.content)-1 {
-			return
-		}
-		line = []rune(l.content[at])
-	}
-}
-
 func (l *List) Visibility(op Visibility) Visibility {
 	switch op {
 	case VisibilityGet:

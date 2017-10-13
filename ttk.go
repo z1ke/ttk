@@ -161,8 +161,8 @@ func EscapedLen(s string) int {
 		return 0
 	}
 
-	total := 0
-	for i, rw := 0, 0; i < len(s); i += rw {
+	var rw, total int
+	for i := 0; i < len(s); i += rw {
 		v, width := utf8.DecodeRuneInString(s[i:])
 		if v == '\x1b' {
 			_, skip, err := DecodeColor(s[i:])
@@ -186,7 +186,8 @@ func Unescape(s string) string {
 	}
 
 	var ret string
-	for i, rw := 0, 0; i < len(s); i += rw {
+	var rw int
+	for i := 0; i < len(s); i += rw {
 		v, width := utf8.DecodeRuneInString(s[i:])
 		if v == '\x1b' {
 			_, skip, err := DecodeColor(s[i:])

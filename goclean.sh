@@ -5,8 +5,10 @@
 # 3. go vet        (http://golang.org/cmd/vet)
 # 4. gosimple      (https://github.com/dominikh/go-simple)
 # 5. unconvert     (https://github.com/mdempsky/unconvert)
-# 6. race detector (http://blog.golang.org/race-detector)
-# 7. test coverage (http://blog.golang.org/cover)
+# 6. ineffassign   (https://github.com/gordonklaus/ineffassign)
+# 7. unused        (https://github.com/dominikh/go-tools)
+# 8. race detector (http://blog.golang.org/race-detector)
+# 9. test coverage (http://blog.golang.org/cover)
 #
 
 # gometalinter (github.com/alecthomas/gometalinter) is used to run each each
@@ -27,6 +29,8 @@ test -z "$(gometalinter --disable-all \
 --enable=vet \
 --enable=gosimple \
 --enable=unconvert \
+--enable=ineffassign \
+--enable=unused \
 --deadline=20s ./... | tee /dev/stderr)"
 env GORACE="halt_on_error=1" go test -v -race ./...
 
