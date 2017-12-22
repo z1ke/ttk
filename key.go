@@ -4,7 +4,7 @@
 
 package ttk
 
-import "github.com/nsf/termbox-go"
+import "github.com/gdamore/tcell/termbox"
 
 // Key contains a key stroke and possible modifiers.
 type Key struct {

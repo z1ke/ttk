@@ -7,7 +7,7 @@ package ttk
 import (
 	"errors"
 
-	"github.com/nsf/termbox-go"
+	"github.com/gdamore/tcell/termbox"
 )
 
 // Widget is the base structure of all widgets.

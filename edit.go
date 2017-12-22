@@ -7,7 +7,7 @@ package ttk
 import (
 	"strings"
 
-	"github.com/nsf/termbox-go"
+	"github.com/gdamore/tcell/termbox"
 )
 
 // WidgetEdit uniquely identifies the edit widget.

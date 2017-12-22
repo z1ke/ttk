@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/companyzero/ttk"
-	"github.com/nsf/termbox-go"
+	"github.com/gdamore/tcell/termbox"
 )
 
 var (
