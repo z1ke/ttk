@@ -371,7 +371,7 @@ func Init() error {
 	fg = termbox.ColorDefault
 	termbox.HideCursor()
 	termbox.SetInputMode(termbox.InputAlt) // this may need to become variable
-	_ = termbox.Clear(bg, bg)
+	termbox.Clear(bg, bg)
 	maxX, maxY = termbox.Size()
 	_ = termbox.Flush()
 
@@ -532,7 +532,7 @@ func focusWindow(w *Window) {
 func resizeAndRender(w *Window) {
 	// render window
 	if w != nil {
-		_ = termbox.Clear(bg, bg)
+		termbox.Clear(bg, bg)
 		maxX, maxY = termbox.Size()
 
 		w.resize(maxX, maxY)
